@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from '../shared/components/header/header.component';
+import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'courses',
-        loadChildren: () => import('./courses/courses.module').then((m) => m.CoursesModule)
+        component: CoursesComponent
       }
     ]
   }
