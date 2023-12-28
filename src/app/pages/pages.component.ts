@@ -15,10 +15,10 @@ export class PagesComponent implements OnInit  {
   ){}
 
   ngOnInit(): void {
-    this.getCourses()
+    this.setCourses()
   }
 
-  getCourses(){
+  setCourses(){
     const courses = this._route.snapshot.data['courses']
     this._appService.setCourses(courses)
   }

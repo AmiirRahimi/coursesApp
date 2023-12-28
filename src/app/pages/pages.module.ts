@@ -6,6 +6,8 @@ import { HeaderComponent } from '../shared/components/header/header.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CourseResolver } from '../core/resolvers/course.resolver';
+import { HttpClientModule } from '@angular/common/http';
+import { AppService } from '../app.service';
 
 const routes: Routes = [
   {
@@ -22,14 +24,14 @@ const routes: Routes = [
       },
       {
         path: 'courses',
-        component: CoursesComponent
+        component: CoursesComponent,
       },
       {
         path: 'course-detail',
         component: CourseDetailComponent
       }
     ]
-  }
+  },
 ]
 
 const CUSTOM = [
@@ -40,8 +42,10 @@ const CUSTOM = [
   declarations: [PagesComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     RouterModule.forChild(routes),
     ...CUSTOM
-  ]
+  ],
+  providers:[AppService]
 })
 export class PagesModule { }

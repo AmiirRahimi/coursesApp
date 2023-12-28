@@ -8,7 +8,7 @@ export class CourseModel{
   num_students:  number                  | undefined;
   price:         number                  | undefined;
   rating:        number                  | undefined;
-  tags:          number                  | undefined;
+  tags:          any                     | undefined;
 
   constructor(obj: Partial<CourseModel>){
    Object.assign(this, obj)

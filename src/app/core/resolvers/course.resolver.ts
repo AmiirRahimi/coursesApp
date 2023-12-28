@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, ResolveFn } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, ResolveFn } from '@angular/router';
 import { Observable, filter, map, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CourseModel } from '../models/course.model';
@@ -10,8 +10,8 @@ export const CourseResolver: ResolveFn<CourseModel> = (
   state: RouterStateSnapshot,
   appService = inject(AppService)
 ): Observable<CourseModel> => appService.fetchCourses()
-  // .pipe(
-  //   filter<CourseModel>((course: CourseModel) => !!course),
-  //   map((course: CourseModel) => new CourseModel(course)),
-  //   take(1)
-  // );
+  .pipe(
+    filter<CourseModel>((courses: any) => !!courses),
+    map((courses: any) => courses.courses),
+    take(1)
+  );

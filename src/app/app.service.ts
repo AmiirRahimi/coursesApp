@@ -1,28 +1,28 @@
 
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { CourseModel } from './core/models/course.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  private _courses: Array<CourseModel> = []
+  private _courses: BehaviorSubject<Array<CourseModel>> = new BehaviorSubject(Array(new CourseModel({})))
 
-  constructor(private _http: HttpClient) {}
+  constructor(@Inject(HttpClient) private _http: any) {}
 
   fetchCourses():Observable<any>{
     return this._http.get('/assets/API/db.json')
   }
 
-  setCourses(courses: Array<CourseModel>){
-    this._courses = courses
+  setCourses(courses: any){
+    this._courses.next(courses)
   }
 
-  getCourses(){
-    return this._courses
+  getCourses(): Observable<Array<CourseModel>>{
+    return this._courses.asObservable()
   }
 
 }
