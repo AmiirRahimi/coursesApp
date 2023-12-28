@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { CourseModel } from '../../core/models/course.model';
-import { SharedDataService } from '../../core/services/shared-data.service';
 import { AppService } from '../../app.service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-course-detail',
@@ -12,9 +12,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss'
 })
-export class CourseDetailComponent implements OnInit {
+export class CourseDetailComponent implements OnInit,OnDestroy {
 
   public course!: CourseModel
+  private _subscription: Subscription[] = []
 
   constructor(
     private _appService: AppService,
@@ -23,6 +24,10 @@ export class CourseDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCourse()
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.forEach(sub => sub.unsubscribe())
   }
 
   getCourse(){

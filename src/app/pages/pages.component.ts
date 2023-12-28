@@ -19,8 +19,7 @@ export class PagesComponent implements OnInit  {
   }
 
   setCourses(){
-    const courses = this._route.snapshot.data['courses']
-    this._appService.setCourses(courses)
+    this._appService.setCourses(this._route.snapshot.data['courses'])
   }
 
 }

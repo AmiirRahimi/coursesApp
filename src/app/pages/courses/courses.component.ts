@@ -12,12 +12,11 @@ import { AppService } from '../../app.service';
   imports: [HttpClientModule,CourseCardComponent, CommonModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
-  providers:[AppService]
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit,OnDestroy {
 
-  private _subscription: Subscription[] = []
   public courses: Array<CourseModel> = []
+  private _subscription: Subscription[] = []
 
   constructor(private _appService: AppService){}
 
@@ -25,9 +24,15 @@ export class CoursesComponent implements OnInit {
     this.getCourses()
   }
 
+  ngOnDestroy(): void {
+    this._subscription.forEach(sub => sub.unsubscribe())
+  }
+
   getCourses(){
+   this._subscription.push(
     this._appService.getCourses().subscribe(courses => {
       this.courses = courses
     })
+   )
   }
 }
