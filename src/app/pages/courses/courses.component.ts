@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CoursesService } from './courses.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { CourseCardComponent } from '../../shared/components/course-card/course-card.component';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { CourseModel } from '../../core/models/course.model';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-courses',
@@ -10,17 +12,19 @@ import { CommonModule } from '@angular/common';
   imports: [HttpClientModule,CourseCardComponent, CommonModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
-  providers:[CoursesService]
+  providers:[AppService]
 })
 export class CoursesComponent implements OnInit {
 
-  public courses: any
+  private _subscription: Subscription[] = []
+  public courses!: Array<CourseModel>
 
-  constructor(private _courseService: CoursesService){}
+  constructor(private _appService: AppService){}
 
   ngOnInit(): void {
-    this._courseService.getCourses().subscribe(res => {
-      this.courses = res.courses
-    })
+  }
+
+  getCourses(){
+    this.courses = this._appService.getCourses()
   }
 }
