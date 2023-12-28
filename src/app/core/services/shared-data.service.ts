@@ -1,21 +1,28 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { CourseModel } from '../models/course.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedDataService {
 
-  private _course: BehaviorSubject<CourseModel | {}> = new BehaviorSubject({})
+  private _headerTitle: string = ''
+  private _courseFormModal: boolean = false
 
   constructor() { }
 
-  getCourse(){
-    return this._course.asObservable()
+  getHeaderTitle(){
+    return this._headerTitle
   }
 
-  setCourse(course: CourseModel){
-    this._course.next(course)
+  setHeaderTitle(title: string){
+    this._headerTitle = title
+  }
+  
+  getCourseFormModal(){
+    return this._courseFormModal
+  }
+
+  setCourseFormModal(state: boolean){
+    this._courseFormModal = state
   }
 }

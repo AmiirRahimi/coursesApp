@@ -23,7 +23,10 @@
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.5",
+    "@rxweb/reactive-form-validators": "^13.0.1",
     "express": "^4.18.2",
+    "i": "^0.3.7",
+    "npm": "^10.2.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"

@@ -1,8 +1,9 @@
-.image-container {
-    border: 1px solid #00000003;
-}
-
-.count-container {
-    display: flex;
-    align-items: center;
+.course-card {
+    .image-container {
+        border: 1px solid #00000003;
+    }
+    .count-container {
+        display: flex;
+        align-items: center;
+    }
 }

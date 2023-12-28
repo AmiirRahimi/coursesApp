@@ -4,6 +4,7 @@ import { CourseModel } from '../../core/models/course.model';
 import { AppService } from '../../app.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { SharedDataService } from '../../core/services/shared-data.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -19,11 +20,17 @@ export class CourseDetailComponent implements OnInit,OnDestroy {
 
   constructor(
     private _appService: AppService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _sharedDataService: SharedDataService
     ){}
 
   ngOnInit(): void {
     this.getCourse()
+    this.setHeaderTitle()
+  }
+
+  setHeaderTitle(){
+    this._sharedDataService.setHeaderTitle('Course detail')
   }
 
   ngOnDestroy(): void {
@@ -35,7 +42,6 @@ export class CourseDetailComponent implements OnInit,OnDestroy {
       const id = res['params']['id']
       this._appService.getCourses().subscribe((res:any) => {
         this.course = res.filter((course:any) => course.id == id)[0]
-        console.log(this.course);
       })
     })
   }

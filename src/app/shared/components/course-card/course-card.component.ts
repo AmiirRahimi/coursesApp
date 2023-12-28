@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { SharedDataService } from '../../../core/services/shared-data.service';
 
 @Component({
@@ -14,16 +14,8 @@ import { SharedDataService } from '../../../core/services/shared-data.service';
 export class CourseCardComponent {
 
   constructor(
-    private _sharedDataService: SharedDataService,
-    private _router: Router,
-    // private _route: ActivatedRoute
     ){}
 
   @Input() course: any
-
-  courseDetail(){
-    this._sharedDataService.setCourse(this.course)
-    this._router.navigate(['./course-detail'])
-  }
 
 }
