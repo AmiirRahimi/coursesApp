@@ -17,6 +17,7 @@ import { CourseModel } from '../../../core/models/course.model';
 export class CourseFormComponent implements OnInit {
 
   @Input() course!: any
+  courses!: CourseModel[]
   formGroup!: FormGroup
   courseFormModel: CourseFormModel = new CourseFormModel()
   tags: any = []
@@ -28,15 +29,19 @@ export class CourseFormComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
+    this.getCourses()
     this.initForm()
     this.checkForEdit()
   }
 
   checkForEdit(){
     if (this.course) {
-      this.course['instructorName']= this.course.instructor.name
-      this.course['instructorEmail']= this.course.instructor.email
-      delete this.course.instructor
+      if (this.course.instructor) {
+        this.course['instructorName']= this.course.instructor.name
+        this.course['instructorEmail']= this.course.instructor.email
+        delete this.course.instructor
+      }
+      this.tags = this.course.tags
       this.formGroup.setValue(this.course)
     }
   }
@@ -67,23 +72,44 @@ export class CourseFormComponent implements OnInit {
   }
 
   addCourse(){
-    let courses: any
     let lastId: number
-    this._appService.getCourses().subscribe(res => {
-      courses = res
-      lastId = courses[courses.length - 1].id
-      this.formGroup.controls['id'].setValue(lastId + 1)
-    })
-    this._appService.setCourses([...courses , this.formGroup.value])
+    lastId = this.courses[this.courses.length - 1].id as number
+    this.formGroup.controls['id'].setValue(lastId + 1)
+    let formValue = this.formGroup.value
+    formValue.instructor = {
+      name:         formValue.instructorName,
+      email:        formValue.instructorEmail,
+     },
+     delete formValue.instructorName
+     delete formValue.instructorEmail
+    this._appService.setCourses([...this.courses , this.formGroup.value])
   }
 
   editCourse(){
-    
+    this.courses = this.courses.map((course:any) => {
+      if (course.id == this.formGroup.value.id) {
+        const keys = Object.keys(course)
+        keys.forEach(key => {
+          course[key] = this.formGroup.value[key]
+        })
+        course.instructor = {
+          name:         this.formGroup.value.instructorName,
+          email:        this.formGroup.value.instructorEmail,
+         }
+      }
+      return course
+    })
   }
 
   closeModal(){
     this._sharedDataService.setCourseFormModal(false)
     this.formGroup.reset()
+  }
+
+  getCourses(){
+    this._appService.getCourses().subscribe(res => {
+      this.courses = res
+    })
   }
 
 }
