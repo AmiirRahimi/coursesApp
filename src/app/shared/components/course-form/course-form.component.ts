@@ -99,6 +99,7 @@ export class CourseFormComponent implements OnInit {
       }
       return course
     })
+    this._appService.setCourses(this.courses)
   }
 
   closeModal(){

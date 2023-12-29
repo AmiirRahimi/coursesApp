@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CourseModel } from '../../core/models/course.model';
 import { AppService } from '../../app.service';
 import { CommonModule } from '@angular/common';
@@ -22,6 +22,7 @@ export class CourseDetailComponent implements OnInit,OnDestroy {
   constructor(
     private _appService: AppService,
     private _route: ActivatedRoute,
+    private _router: Router,
     public sharedDataService: SharedDataService
     ){}
 
@@ -44,6 +45,9 @@ export class CourseDetailComponent implements OnInit,OnDestroy {
       const id = res['params']['id']
       this._appService.getCourses().subscribe((res:any) => {
         this.course = res.filter((course:any) => course.id == id)[0]
+        if (!this.course) {
+          this._router.navigate(['../'], {relativeTo: this._route})
+        }
       })
     })
   }
