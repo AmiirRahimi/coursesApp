@@ -5,11 +5,12 @@ import { AppService } from '../../app.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../core/services/shared-data.service';
+import { CourseFormComponent } from '../../shared/components/course-form/course-form.component';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CourseFormComponent],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss'
 })
@@ -21,16 +22,17 @@ export class CourseDetailComponent implements OnInit,OnDestroy {
   constructor(
     private _appService: AppService,
     private _route: ActivatedRoute,
-    private _sharedDataService: SharedDataService
+    public sharedDataService: SharedDataService
     ){}
 
   ngOnInit(): void {
     this.getCourse()
-    this.setHeaderTitle()
+    this.setHeaderItems()
   }
 
-  setHeaderTitle(){
-    this._sharedDataService.setHeaderTitle('Course detail')
+  setHeaderItems(){
+    this.sharedDataService.setHeaderItems({title: 'Course Detail', button: 'Edit Course +'})
+
   }
 
   ngOnDestroy(): void {

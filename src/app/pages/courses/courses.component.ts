@@ -31,7 +31,7 @@ export class CoursesComponent implements OnInit,OnDestroy {
   }
 
   setHeaderTitle(){
-    this.sharedDataService.setHeaderTitle('Courses')
+    this.sharedDataService.setHeaderItems({title: 'Courses', button: 'Add Course +'})
   }
 
   ngOnDestroy(): void {

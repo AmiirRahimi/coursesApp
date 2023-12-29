@@ -3,34 +3,37 @@ import { prop } from "@rxweb/reactive-form-validators";
 export class CourseFormModel{
 
   @prop()
-  title:         string                  | undefined;
+  id!:             number                 | null;
 
   @prop()
-  instructorName:    object                  | undefined;
+  title!:         string                  | null;
 
   @prop()
-  instructorEmail:    object                  | undefined;
+  instructorName!:    object              | null;
 
   @prop()
-  description:   string                  | undefined;
+  instructorEmail!:    object             | null;
 
   @prop()
-  duration:      string                  | undefined;
+  description!:   string                  | null;
 
   @prop()
-  level:         string                  | undefined;
+  duration!:      string                  | null;
 
   @prop()
-  num_students:  number                  | undefined;
+  level!:         string                  | null;
+  
+  @prop()
+  num_students!:  number                  | null;
 
   @prop()
-  price:         number                  | undefined;
+  price!:         number                  | null;
 
   @prop()
-  rating:        number                  | undefined;
+  rating!:        number                  | null;
 
   @prop()
-  tags:          any                     | undefined;
+  tags!:          any                     | null;
 
   toApiModel(){ 
    return {

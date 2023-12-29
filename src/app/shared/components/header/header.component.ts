@@ -13,8 +13,4 @@ export class HeaderComponent {
   constructor(
     public sharedDataService: SharedDataService,
     ){}
-
-  addCourse(){
-  }
-
 }

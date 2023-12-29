@@ -5,17 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class SharedDataService {
 
-  private _headerTitle: string = ''
+  private _headerItems: {title: string | null, button: string | null} = {title: null, button: null}
   private _courseFormModal: boolean = false
 
   constructor() { }
 
-  getHeaderTitle(){
-    return this._headerTitle
+  getHeaderItems(){
+    return this._headerItems
   }
 
-  setHeaderTitle(title: string){
-    this._headerTitle = title
+  setHeaderItems(items: any){
+    this._headerItems = items
   }
   
   getCourseFormModal(){
