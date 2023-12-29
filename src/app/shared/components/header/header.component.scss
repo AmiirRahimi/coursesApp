@@ -1,7 +1,12 @@
-h1 {
-    background-color: rgba(0, 0, 0, 0.068);
-    border-radius: 8px;
-    padding: 8px;
-    cursor: default;
-    font-weight: 900;
+.header-component {
+    h1 {
+        background-color: rgba(0, 0, 0, 0.068);
+        border-radius: 8px;
+        padding: 8px;
+        cursor: default;
+        font-weight: 900;
+    }
+    .pointer {
+        cursor: pointer !important;
+    }
 }

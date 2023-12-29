@@ -18,15 +18,10 @@ export class AppService {
   }
 
   setCourses(courses: any){
-    // localStorage.setItem('courses', JSON.stringify(courses))
     this._courses.next(courses)
   }
 
   getCourses(): Observable<Array<CourseModel>>{
-    // const courses = JSON.parse(localStorage.getItem('courses')!)
-    // if (courses) {
-    //   this.setCourses(courses)
-    // }
     return this._courses.asObservable()
   }
 
